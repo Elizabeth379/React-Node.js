@@ -62,6 +62,56 @@ class MedicineController{
         )
         return res.json(medicine)
     }
+
+    async update(req, res, next) {
+        try {
+            const { id } = req.params;
+            const { name, price, manufacturerId, typeId, info } = req.body;
+
+            let updatedMedicine = { name, price, manufacturerId, typeId };
+
+            // Проверяем, пришли ли новые данные по изображению
+            if (req.files && req.files.img) {
+                const { img } = req.files;
+                let fileName = uuid.v4() + ".jpg";
+                img.mv(path.resolve(__dirname, '..', 'static', fileName));
+                updatedMedicine.img = fileName;
+            }
+
+            // Обновляем основную информацию по медицине
+            await Medicine.update(updatedMedicine, { where: { id } });
+
+            // Проверяем, пришли ли новые данные по info
+            if (info) {
+                await MedicineInfo.destroy({ where: { medicineId: id } });
+                const infoArray = JSON.parse(info);
+                infoArray.forEach(i => {
+                    MedicineInfo.create({
+                        title: i.title,
+                        description: i.description,
+                        medicineId: id
+                    });
+                });
+            }
+
+            return res.json({ message: 'Лекарство успешно обновлено' });
+        } catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+            const { id } = req.params;
+
+            await Medicine.destroy({ where: { id } });
+            await MedicineInfo.destroy({ where: { medicineId: id } });
+
+            return res.json({ message: 'Лекарство успешно удалено' });
+        } catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
 }
 
 module.exports = new MedicineController()
