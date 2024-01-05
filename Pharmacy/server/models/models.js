@@ -34,6 +34,12 @@ const Manufacturer = sequelize.define('manufacturer', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
 
+const MedicineInfo = sequelize.define('medicine_info', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    description: {type: DataTypes.STRING, allowNull: false},
+})
+
 const  TypeManufacturer = sequelize.define('type_manufacturer', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
@@ -53,6 +59,9 @@ Medicine.belongsTo(Manufacturer)
 Medicine.hasMany(BasketMedicine)
 BasketMedicine.belongsTo(Medicine)
 
+Medicine.hasMany(MedicineInfo, {as: 'info'});
+MedicineInfo.belongsTo(Medicine)
+
 Type.belongsToMany(Manufacturer, {through: TypeManufacturer})
 Manufacturer.belongsToMany(Type, {through: TypeManufacturer})
 
@@ -63,5 +72,6 @@ module.exports = {
     Medicine,
     Type,
     Manufacturer,
-    TypeManufacturer
+    TypeManufacturer,
+    MedicineInfo
 }

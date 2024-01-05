@@ -1,17 +1,28 @@
 const uuid = require('uuid')
 const  path = require('path');
-const {Medicine} = require('../models/models')
+const {Medicine, MedicineInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class MedicineController{
     async create(req, res, next){
         try{
-            const {name, price, manufacturerId, typeId} = req.body
+            let {name, price, manufacturerId, typeId, info} = req.body
             const{img} = req.files
             let fileName = uuid.v4() + ".jpg"
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
 
             const medicine = await Medicine.create({name, price, manufacturerId, typeId, img: fileName})
+
+            if (info) {
+                info = JSON.parse(info)
+                info.forEach(i =>
+                    MedicineInfo.create({
+                        title: i.title,
+                        description: i.description,
+                        medicineId: medicine.id
+                    })
+                )
+            }
 
             return res.json(medicine)
         } catch (e) {
@@ -46,6 +57,7 @@ class MedicineController{
         const medicine = await Medicine.findOne(
             {
                 where: {id},
+                include: [{model: MedicineInfo, as: 'info'}]
             },
         )
         return res.json(medicine)
