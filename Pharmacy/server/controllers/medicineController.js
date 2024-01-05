@@ -21,25 +21,34 @@ class MedicineController{
     }
 
     async getAll(req, res){
-        const  {manufacturerId, typeId} = req.query
+        let  {manufacturerId, typeId, limit, page} = req.query
+        page = page || 1
+        limit = limit || 9
+        let offset = page * limit - limit
         let medicines;
         if(!manufacturerId && !typeId){
-            medicines = await Medicine.findAll()
+            medicines = await Medicine.findAndCountAll({limit, offset})
         }
         if(manufacturerId && !typeId){
-            medicines = await Medicine.findAll({where:{manufacturerId}})
+            medicines = await Medicine.findAndCountAll({where:{manufacturerId}, limit, offset})
         }
         if(!manufacturerId && typeId){
-            medicines = await Medicine.findAll({where:{typeId}})
+            medicines = await Medicine.findAndCountAll({where:{typeId}, limit, offset})
         }
         if(manufacturerId && typeId){
-            medicines = await Medicine.findAll({where:{typeId, manufacturerId}})
+            medicines = await Medicine.findAndCountAll({where:{typeId, manufacturerId}, limit, offset})
         }
         return res.json(medicines)
     }
 
     async getOne(req, res){
-
+        const  {id} = req.params
+        const medicine = await Medicine.findOne(
+            {
+                where: {id},
+            },
+        )
+        return res.json(medicine)
     }
 }
 
