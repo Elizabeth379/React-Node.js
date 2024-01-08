@@ -6,7 +6,7 @@ const MedicineList = ({ medicines, onEdit, onDelete }) => {
         <div>
             {medicines.map(medicine => (
                 <MedicineItem
-                    key={medicine._id}
+                    key={medicine.id}
                     medicine={medicine}
                     onEdit={onEdit}
                     onDelete={onDelete}

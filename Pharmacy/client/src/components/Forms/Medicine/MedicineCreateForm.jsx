@@ -6,7 +6,7 @@ import MySelect from '../../UI/Inputs/MySelect';
 import styles from '../Styles.module.css'
 
 const MedicineCreateForm = ({ create, types, manufacturers }) => {
-    const defaultMedicine = { name: '', price: 0, img: '', type: '', manufacturer: '', };
+    const defaultMedicine = { id: 0, name: '', price: 0, img: '', type: '', manufacturer: '', };
 
     const [medicine, setMedicine] = useState(defaultMedicine);
     const [error, setError] = useState('');
@@ -34,12 +34,12 @@ const MedicineCreateForm = ({ create, types, manufacturers }) => {
             return;
         }
 
-        if (!medicine.type) {
+        if (!medicine.typeId) {
             setError('Type is required');
             return;
         }
 
-        if (!medicine.manufacturer) {
+        if (!medicine.manufacturerId) {
             setError('Manufacturer is required');
             return;
         }
@@ -81,7 +81,7 @@ const MedicineCreateForm = ({ create, types, manufacturers }) => {
                     defaultName="Тип"
                     options={types.map((type) => ({
                         name: type.name,
-                        value: type._id,
+                        value: type.id,
                     }))}
                 />
             </div>
@@ -93,7 +93,7 @@ const MedicineCreateForm = ({ create, types, manufacturers }) => {
                     defaultName="Производитель"
                     options={manufacturers.map((manufacturer) => ({
                         name: manufacturer.name,
-                        value: manufacturer._id,
+                        value: manufacturer.id,
                     }))}
                 />
             </div>

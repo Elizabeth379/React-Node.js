@@ -5,7 +5,7 @@ import MyTextArea from '../../UI/Inputs/MyTextArea';
 import styles from '../Styles.module.css'
 
 const TypeUpdateForm = ({ update, editingType }) => {
-    const defaultType = { name: '' };
+    const defaultType = { id: 0, name: '' };
 
     const [type, setType] = useState(defaultType);
     const [error, setError] = useState('');

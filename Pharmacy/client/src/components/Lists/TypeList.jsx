@@ -6,7 +6,7 @@ const TypeList = ({ types, onEdit, onDelete }) => {
         <div>
             {types.map(type => (
                 <TypeItem
-                    key={type._id}
+                    key={type.id}
                     type={type}
                     onEdit={onEdit}
                     onDelete={onDelete}

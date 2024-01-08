@@ -13,14 +13,14 @@ import AuthContext from '../context/AuthContext';
 const Medicines = () => {
     const { isAuth } = useContext(AuthContext);
     const [medicines, setMedicines] = useState([]);
-    const [types, setManufacturers] = useState([]);
-    const [manufacturers, setTypes] = useState([]);
+    const [manufacturers, setManufacturers] = useState([]);
+    const [types, setTypes] = useState([]);
     const [selectedType, setSelectedType] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState('');
     const [modalCreate, setModalCreate] = useState(false);
     const [modalUpdate, setModalUpdate] = useState(false);
-    const [editingMedicine, setEditingMedicine] = useState({ name: '', price: 0, img: '', type: '', manufacturer: '' });
+    const [editingMedicine, setEditingMedicine] = useState({ id:0, name: '', price: 0, typeId: '', manufacturerId: '', img: '' });
 
     useEffect(() => {
         $axios.get('/medicine')
@@ -37,7 +37,7 @@ const Medicines = () => {
     }, []);
 
     const filteredMedicines = selectedType
-        ? medicines.filter(medicine => medicine.type._id === selectedType)
+        ? medicines.filter(medicine => medicine.typeId === selectedType)
         : medicines;
 
     const filteredSearchedMedicines = searchTerm

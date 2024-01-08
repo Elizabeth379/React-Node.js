@@ -17,15 +17,15 @@ const MedicineItem = (props) => {
                 </div>
 
                 <div className={styles.category}>
-                    Фото: {props.medicine.img.name}
+                    Фото: {props.medicine.img}
                 </div>
 
                 <div className={styles.category}>
-                    Тип: {props.medicine.type.name}
+                    Тип: {props.medicine.typeId}
                 </div>
 
                 <div className={styles.category}>
-                    Производитель: {props.medicine.manufacturer.name}
+                    Производитель: {props.medicine.manufacturerId}
                 </div>
 
                 <div className={styles.cost}>
@@ -42,7 +42,6 @@ const MedicineItem = (props) => {
                     </>
                 )}
 
-                <MyButton onClick={() => setModal(true)}>Оформить</MyButton>
             </div>
 
         </div>

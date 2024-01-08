@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const  path = require('path');
-const {Medicine, MedicineInfo} = require('../models/models')
+const {Medicine, MedicineInfo, Type} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class MedicineController{
@@ -31,25 +31,15 @@ class MedicineController{
 
     }
 
-    async getAll(req, res){
-        let  {manufacturerId, typeId, limit, page} = req.query
-        page = page || 1
-        limit = limit || 9
-        let offset = page * limit - limit
-        let medicines;
-        if(!manufacturerId && !typeId){
-            medicines = await Medicine.findAndCountAll({limit, offset})
+    async getAll(req, res, next){
+        try {
+            const medicines = await Medicine.findAll();
+            return res.json(medicines);
+        } catch (e) {
+            console.error(e);
+            return next(ApiError.internal('Internal Server Error'));
         }
-        if(manufacturerId && !typeId){
-            medicines = await Medicine.findAndCountAll({where:{manufacturerId}, limit, offset})
-        }
-        if(!manufacturerId && typeId){
-            medicines = await Medicine.findAndCountAll({where:{typeId}, limit, offset})
-        }
-        if(manufacturerId && typeId){
-            medicines = await Medicine.findAndCountAll({where:{typeId, manufacturerId}, limit, offset})
-        }
-        return res.json(medicines)
+
     }
 
     async getOne(req, res){

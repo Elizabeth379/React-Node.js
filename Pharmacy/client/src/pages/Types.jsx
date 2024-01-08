@@ -17,7 +17,7 @@ const Types = () => {
     const [sortOrder, setSortOrder] = useState('');
     const [modalCreate, setModalCreate] = useState(false);
     const [modalUpdate, setModalUpdate] = useState(false);
-    const [editingType, setEditingType] = useState({ name: ''});
+    const [editingType, setEditingType] = useState({ id: 0, name: ''});
 
     useEffect(() => {
         $axios.get('http://localhost:5000/api/type')
@@ -57,10 +57,10 @@ const Types = () => {
     };
 
     const updateType = (updatedType) => {
-        $axios.put(`/type/${updatedType._id}`, updatedType)
+        $axios.put(`/type/${updatedType.id}`, updatedType)
             .then(response => {
                 const updatedTypes = types.map(type =>
-                    type._id === updatedType._id ? response.data : type
+                    type.id === updatedType.id ? response.data : type
                 );
                 setTypes(updatedTypes);
                 alert('SERVER: updated successfully');

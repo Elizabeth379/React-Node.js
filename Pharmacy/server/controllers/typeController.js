@@ -25,7 +25,8 @@ class TypeController{
 
     async update(req, res, next){
         try {
-            const { id } = req.params.toString();
+            const { id } = req.params;
+            console.log(req.params)
             const { name } = req.body;
 
             const type = await Type.findByPk(id);
@@ -45,7 +46,7 @@ class TypeController{
 
     async delete(req, res, next){
         try {
-            const { id } = req.params.toString();
+            const { id } = req.params;
 
             const type = await Type.findByPk(id);
 

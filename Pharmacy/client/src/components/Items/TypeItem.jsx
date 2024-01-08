@@ -18,7 +18,7 @@ const TypeItem = (props) => {
             {isAuth && (
                 <div className={styles.buttons}>
                     <MyButton onClick={() => props.onEdit(props.type)}>Изменить</MyButton>
-                    <MyButton onClick={() => props.onDelete(props.type._id)}>Удалить</MyButton>
+                    <MyButton onClick={() => props.onDelete(props.type.id)}>Удалить</MyButton>
                 </div>
             )}
 
