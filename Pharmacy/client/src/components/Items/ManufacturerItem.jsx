@@ -18,7 +18,7 @@ const ManufacturerItem = (props) => {
             {isAuth && (
                 <div className={styles.buttons}>
                     <MyButton onClick={() => props.onEdit(props.manufacturer)}>Изменить</MyButton>
-                    <MyButton onClick={() => props.onDelete(props.manufacturer._id)}>Удалить</MyButton>
+                    <MyButton onClick={() => props.onDelete(props.manufacturer.id)}>Удалить</MyButton>
                 </div>
             )}
 

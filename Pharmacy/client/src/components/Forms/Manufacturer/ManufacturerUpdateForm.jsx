@@ -5,7 +5,7 @@ import MyTextArea from '../../UI/Inputs/MyTextArea';
 import styles from '../Styles.module.css'
 
 const ManufacturerUpdateForm = ({ update, editingManufacturer }) => {
-    const defaultManufacturer = { name: '' };
+    const defaultManufacturer = { id: 0, name: '' };
 
     const [manufacturer, setManufacturer] = useState(defaultManufacturer);
     const [error, setError] = useState('');

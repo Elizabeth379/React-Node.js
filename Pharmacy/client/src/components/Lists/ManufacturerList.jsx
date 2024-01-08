@@ -6,7 +6,7 @@ const ManufacturerList = ({ manufacturers, onEdit, onDelete }) => {
         <div>
             {manufacturers.map(manufacturer => (
                 <TypeItem
-                    key={manufacturer._id}
+                    key={manufacturer.id}
                     manufacturer={manufacturer}
                     onEdit={onEdit}
                     onDelete={onDelete}

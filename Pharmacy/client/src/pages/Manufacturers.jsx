@@ -17,7 +17,7 @@ const Manufacturers = () => {
     const [sortOrder, setSortOrder] = useState('');
     const [modalCreate, setModalCreate] = useState(false);
     const [modalUpdate, setModalUpdate] = useState(false);
-    const [editingManufacturer, setEditingManufacturer] = useState({ name: ''});
+    const [editingManufacturer, setEditingManufacturer] = useState({ id: 0, name: ''});
 
     useEffect(() => {
         $axios.get('http://localhost:5000/api/manufacturer')
@@ -57,10 +57,10 @@ const Manufacturers = () => {
     };
 
     const updateManufacturer = (updatedManufacturer) => {
-        $axios.put(`/manufacturer/${updatedManufacturer._id}`, updatedManufacturer)
+        $axios.put(`manufacturer${updatedManufacturer.id}`, updatedManufacturer)
             .then(response => {
                 const updatedManufacturers = manufacturers.map(manufacturer =>
-                    manufacturer._id === updatedManufacturer._id ? response.data : manufacturer
+                    manufacturer.id === updatedManufacturer.id ? response.data : manufacturer
                 );
                 setManufacturers(updatedManufacturers);
                 alert('SERVER: updated successfully');
