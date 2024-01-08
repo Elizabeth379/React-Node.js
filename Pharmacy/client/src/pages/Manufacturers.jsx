@@ -8,7 +8,6 @@ import ManufacturerCreateForm from '../components/Forms/Manufacturer/Manufacture
 import ManufacturerUpdateForm from '../components/Forms/Manufacturer/ManufacturerUpdateForm';
 import './Styles.css'
 import AuthContext from '../context/AuthContext';
-import TypeList from '../components/Lists/ManufacturerList';
 import ManufacturerList from "../components/Lists/ManufacturerList";
 
 const Manufacturers = () => {

@@ -64,3 +64,8 @@
         transform: translate(-1%, -2%) rotate(-1deg);
     }
 }
+
+mark {
+    background-color: #06ff47;
+    font-weight: bold;
+}
